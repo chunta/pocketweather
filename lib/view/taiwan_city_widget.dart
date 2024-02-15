@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
+import 'package:pocket_weather/routes.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
 
 class TaiwanCityWidget extends StatelessWidget {
@@ -26,6 +27,10 @@ class TaiwanCityWidget extends StatelessWidget {
                           subtitle: Text(
                               '${city.current.currentTemp} ${city.location.lat} ${city.location.lon} ${city.location.lat}',
                               style: const TextStyle(fontSize: 25)),
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(Routers.cityForcast);
+                          },
                         );
                       }, childCount: snapshot.data!.length),
                     )

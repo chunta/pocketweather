@@ -1,4 +1,4 @@
-import 'weathercondition.dart';
+import 'weather_condition.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable()

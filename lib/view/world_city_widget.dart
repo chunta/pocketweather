@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
+import 'package:pocket_weather/routes.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
 
 class WorldCityWidget extends StatelessWidget {
@@ -37,6 +38,9 @@ class WorldCityWidget extends StatelessWidget {
                         style: const TextStyle(fontSize: 28)),
                     subtitle: Text('${city.current.currentTemp}',
                         style: const TextStyle(fontSize: 15)),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(Routers.cityForcast);
+                    },
                   );
                 });
           }
