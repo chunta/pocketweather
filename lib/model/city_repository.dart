@@ -4,18 +4,21 @@ import 'package:http/http.dart' as http;
 import 'package:pocket_weather/model/city_forecast.dart';
 
 class CityRepository {
+  static const String _apiKey = 'c2d28b91440d4393a78121230241402';
+  static const String _apiBaseUrl = 'https://api.weatherapi.com/v1/forecast.json';
+  static const String _queryParams = 'days=7&aqi=no&alerts=no';
+
   bool _isFetchingWorldCities = false;
+  bool _isFetchingTaiwanCities = false;
 
   final StreamController<List<CityForecast>> _worldCitiesDataStreamController =
       StreamController<List<CityForecast>>.broadcast();
 
-  Stream<List<CityForecast>> get worldCitiesDataStream =>
-      _worldCitiesDataStreamController.stream;
-
-  bool _isFetchingTaiwanCities = false;
-
   final StreamController<List<CityForecast>> _taiwanCitiesDataStreamController =
       StreamController<List<CityForecast>>.broadcast();
+
+  Stream<List<CityForecast>> get worldCitiesDataStream =>
+      _worldCitiesDataStreamController.stream;
 
   Stream<List<CityForecast>> get taiwanCitiesDataStream =>
       _taiwanCitiesDataStreamController.stream;
@@ -28,7 +31,12 @@ class CityRepository {
     return _instance;
   }
 
-  List<String> worldCities = ["London", "New York", "Tokyo", "Paris", "Berlin"];
+  List<String> worldCities = [
+    "London", 
+    "New York",  
+    "Tokyo", 
+    "Paris", 
+    "Berlin"];
 
   List<String> taiwanCities = [
     "25.0329694, 121.5654177", //台北
@@ -46,21 +54,23 @@ class CityRepository {
     if (!_isFetchingWorldCities) {
       _isFetchingWorldCities = true;
       List<Future<CityForecast>> futures = [];
-      for (var i = 0; i < worldCities.length; i++) {
-        final fullUrl =
-            'https://api.weatherapi.com/v1/forecast.json?key=c2d28b91440d4393a78121230241402&q=${worldCities[i]}&days=7&aqi=no&alerts=no';
+      for (var city in worldCities) {
+        final fullUrl = '$_apiBaseUrl?key=$_apiKey&q=$city&$_queryParams';
         futures.add(fetchApi(fullUrl));
       }
       try {
         List<CityForecast> results = await Future.wait(futures);
+        // ignore: avoid_print
         print('$results');
         _worldCitiesDataStreamController.add(results);
       } catch (e) {
+        // ignore: avoid_print
         print('Error fetching world cities: $e');
       } finally {
         _isFetchingWorldCities = false;
       }
     } else {
+      // ignore: avoid_print
       print("Is Fetching (World City)");
     }
   }
@@ -69,20 +79,21 @@ class CityRepository {
     if (!_isFetchingTaiwanCities) {
       _isFetchingTaiwanCities = true;
       List<Future<CityForecast>> futures = [];
-      for (var i = 0; i < taiwanCities.length; i++) {
-        final fullUrl =
-            'https://api.weatherapi.com/v1/forecast.json?key=c2d28b91440d4393a78121230241402&q=${taiwanCities[i]}&days=7&aqi=no&alerts=no';
+      for (var city in taiwanCities) {
+        final fullUrl = '$_apiBaseUrl?key=$_apiKey&q=$city&$_queryParams';
         futures.add(fetchApi(fullUrl));
       }
       try {
         List<CityForecast> results = await Future.wait(futures);
         _taiwanCitiesDataStreamController.add(results);
       } catch (e) {
+        // ignore: avoid_print
         print('Error fetching Taiwan cities: $e');
       } finally {
         _isFetchingTaiwanCities = false;
       }
     } else {
+      // ignore: avoid_print
       print("Is Fetching (Taiwan)");
     }
   }
@@ -99,6 +110,7 @@ class CityRepository {
   }
 
   void dispose() {
+    // ignore: avoid_print
     print("call dispost of CityRepository");
   }
 }

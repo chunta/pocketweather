@@ -30,10 +30,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Tabs Example'),
           bottom: const TabBar(
-            tabs: [
-              Text("World City"),
-              Text("Taiwan City")
-            ],
+            tabs: [Text("World City"), Text("Taiwan City")],
           ),
         ),
         body: TabBarView(
@@ -46,38 +43,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-/*
-class Frog extends StatelessWidget {
-  const Frog(
-      {super.key,
-      this.color = const Color(0xFF2DBD3A),
-      this.child,
-      required this.cityViewModel});
-
-  final Color color;
-  final Widget? child;
-  final CityViewModel cityViewModel;
-
-  @override
-  Widget build(BuildContext context) {
-    print("process line 75....");
-    cityViewModel.fetchWorldFamousCities();
-    return StreamBuilder<List<CityForecast>>(
-        stream: cityViewModel.getWorldCitiesStream(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Text('Data: ${snapshot.data?.length}');
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return const CircularProgressIndicator();
-          }
-        });
-  }
-
-  void dispose() {
-    print("Frog - dispose is called ${hashCode}");
-  }
-}
-*/
