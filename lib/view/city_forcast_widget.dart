@@ -5,6 +5,6 @@ class CityForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider();
+    return const Divider();
   }
 }

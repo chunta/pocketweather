@@ -4,9 +4,10 @@ import 'package:pocket_weather/view/custom_location_widget.dart';
 import 'package:pocket_weather/view/world_city_widget.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
 import 'package:pocket_weather/view/taiwan_city_widget.dart';
+import 'package:pocket_weather/view_model/custom_location_view_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +48,8 @@ class HomePage extends StatelessWidget {
           children: [
             WorldCityWidget(cityViewModel: CityViewModel()),
             TaiwanCityWidget(cityViewModel: CityViewModel()),
-            CustomLocationWidget(cityViewModel: CityViewModel())
+            CustomLocationWidget(
+                customLocationViewModel: CustomLocationViewModel())
           ],
         ),
       ),

@@ -8,16 +8,14 @@ class CustomLocationRepository {
   final logger = Logger();
   static const String customKey = 'pocket_custom_location';
 
-  Future<Map<String, String>> getCustomLocations() async {
+  Future<Map<String, dynamic>> getCustomLocations() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(customKey);
     if (jsonString != null) {
       final jsonMap = jsonDecode(jsonString);
-      return jsonMap.map<String, String>((key, value) {
-        return MapEntry(key, CustomLocation.fromJson(value));
-      });
+      return jsonMap;
     } else {
-      return {};
+      return Future.value({});
     }
   }
 
@@ -25,25 +23,28 @@ class CustomLocationRepository {
     if (label.isEmpty) {
       return Future.value(false);
     }
-    Map<String, String> existingMap = await getCustomLocations();
+    Map<String, dynamic> existingMap = await getCustomLocations();
     CustomLocation customLocation =
         CustomLocation(lat: lat, lon: lon, label: label);
     final jsonString = jsonEncode(customLocation.toJson());
     existingMap[label] = jsonString;
     final pref = await SharedPreferences.getInstance();
-    return pref.setString(customLocation.label, jsonString);
+    return pref.setString(customKey, jsonEncode(existingMap));
   }
 
   Future<Map<String, CustomLocation>> getAllCustomLocations() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(customKey);
+    Map<String, CustomLocation> results = {};
     if (jsonString != null) {
       final jsonMap = jsonDecode(jsonString);
-      return jsonMap.map<String, String>((key, value) {
-        return MapEntry(key, CustomLocation.fromJson(value));
+      jsonMap.forEach((key, value) {
+        final customLocation = CustomLocation.fromJson(jsonDecode(value));
+        results[key] = customLocation;
       });
+      return Future.value(results);
     } else {
-      return {};
+      return Future.value({});
     }
   }
 }

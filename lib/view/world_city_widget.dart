@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
 import 'package:pocket_weather/routes.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
@@ -14,7 +11,6 @@ class WorldCityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     cityViewModel.fetchWorldFamousCities();
-
     return StreamBuilder<List<CityForecast>>(
         stream: cityViewModel.getWorldCitiesStream(),
         builder: (context, snapshot) {

@@ -14,11 +14,11 @@ class CustomLocationViewModel {
     return _instance;
   }
 
-  Future<bool> saveCustomLocation(double lat, double lon, String label) {
+  Future<bool> saveCustomLocation(double lat, double lon, String label) async {
     return CustomLocationRepository().saveCustomLocation(lat, lon, label);
   }
 
-  Future<Map<String, CustomLocation>> getAllCustomLocations() {
+  Future<Map<String, CustomLocation>> getAllCustomLocations() async {
     return CustomLocationRepository().getAllCustomLocations();
   }
 
