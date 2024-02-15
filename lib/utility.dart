@@ -1,0 +1,6 @@
+class Utility {
+  static String formatEpochTime(int epochTime) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(epochTime * 1000);
+    return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')} ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}';
+  }
+}

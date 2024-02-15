@@ -28,8 +28,12 @@ class TaiwanCityWidget extends StatelessWidget {
                               '${city.current.currentTemp} ${city.location.lat} ${city.location.lon} ${city.location.lat}',
                               style: const TextStyle(fontSize: 25)),
                           onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(Routers.cityForcast);
+                            Navigator.of(context).pushNamed(Routers.cityForcast,
+                                arguments: {
+                                  'name': city.location.name,
+                                  'lat': 0.0,
+                                  'lon': 0.0
+                                });
                           },
                         );
                       }, childCount: snapshot.data!.length),

@@ -3,7 +3,6 @@ import 'package:pocket_weather/model/custom_location.dart';
 import 'package:pocket_weather/routes.dart';
 import 'package:pocket_weather/view_model/custom_location_view_model.dart';
 import 'package:logger/logger.dart';
-import 'package:pocket_weather/model/city_forecast.dart';
 
 class CustomLocationWidget extends StatefulWidget {
   final CustomLocationViewModel customLocationViewModel;
@@ -101,8 +100,14 @@ class _CustomLocationWidgetState extends State<CustomLocationWidget> {
                             onTap: () {
                               logger.d(
                                   "one saved record is tapped ${customLocation?.label ?? ''}");
-                              Navigator.of(widgetContext)
-                                  .pushNamed(Routers.cityForcast);
+                              Navigator.of(widgetContext).pushNamed(
+                                Routers.cityForcast,
+                                arguments: {
+                                  'name': "",
+                                  'lat': customLocation?.lat ?? 0.0,
+                                  'lon': customLocation?.lon ?? 0.0,
+                                },
+                              );
                             },
                           );
                         },

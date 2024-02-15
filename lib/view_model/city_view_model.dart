@@ -30,6 +30,14 @@ class CityViewModel {
     await CityRepository().fetchTaiwanCities();
   }
 
+  Future<CityForecast> fetchForcastByName(String name) async {
+    return CityRepository().fetchForcastByName(name);
+  }
+
+  Future<CityForecast> fetchForcastByLatLon(double lat, double lon) async {
+    return CityRepository().fetchForcastByLatLon(lat, lon);
+  }
+
   void dispose() {
     logger.d("call dispost of CityViewModel");
   }

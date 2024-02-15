@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+import 'package:pocket_weather/model/city_current.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
 
 class CityRepository {
@@ -90,6 +91,16 @@ class CityRepository {
     } else {
       logger.d("Is Fetching (Taiwan)");
     }
+  }
+
+  Future<CityForecast> fetchForcastByName(String name) async {
+    final fullUrl = '$_apiBaseUrl?key=$_apiKey&q=$name&$_queryParams';
+    return fetchApi(fullUrl);
+  }
+
+  Future<CityForecast> fetchForcastByLatLon(double lat, double lon) async {
+    final fullUrl = '$_apiBaseUrl?key=$_apiKey&q=$lat,$lon&$_queryParams';
+    return fetchApi(fullUrl);
   }
 
   Future<CityForecast> fetchApi(String url) async {

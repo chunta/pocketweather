@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:pocket_weather/main.dart';
 import 'package:pocket_weather/view/city_forcast_widget.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
@@ -8,7 +9,14 @@ class Routers {
 
   static final routers = {
     root: (context) => const HomePage(),
-    cityForcast: (context) =>
-        CityForecastWidget(cityViewModel: CityViewModel()),
+    cityForcast: (context) {
+      final args =
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      return CityForecastWidget(
+          cityViewModel: CityViewModel(),
+          name: args['name'] as String? ?? "",
+          lat: args['lat'] as double? ?? 0.0,
+          lon: args['lon'] as double? ?? 0.0);
+    }
   };
 }
