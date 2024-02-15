@@ -10,30 +10,32 @@ class TaiwanCityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     cityViewModel.fetchTaiwanCities();
-     return StreamBuilder<List<CityForecast>>(
-      stream: cityViewModel.getTaiwanCitiesStream(), 
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(
-            child: SizedBox(
-              width: 50, // Set the width
-              height: 50, // Set the height
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final city = snapshot.data![index];
-              return ListTile(
-                title: Text(city.location.name, style: const TextStyle(fontSize: 20)),
-                subtitle: Text('${city.current.currentTemp}', style: const TextStyle(fontSize: 15)),
-              );
-            });
-        }
-      });
+    return Scaffold(
+      body: StreamBuilder<List<CityForecast>>(
+        stream: cityViewModel.getTaiwanCitiesStream(),
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? CustomScrollView(
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final city = snapshot.data![index];
+                        return ListTile(
+                          title: Text(city.location.name,
+                              style: const TextStyle(fontSize: 28)),
+                          subtitle: Text(
+                              '${city.current.currentTemp} ${city.location.lat} ${city.location.lon} ${city.location.lat}',
+                              style: const TextStyle(fontSize: 25)),
+                        );
+                      }, childCount: snapshot.data!.length),
+                    )
+                  ],
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
+      ),
+    );
   }
 }

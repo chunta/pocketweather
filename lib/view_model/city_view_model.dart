@@ -28,6 +28,7 @@ class CityViewModel {
   }
 
   void dispose() {
+    // ignore: avoid_print
     print("call dispost of CityViewModel");
   }
 }

@@ -27,7 +27,10 @@ class HomePage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Pocket Weather', style: const TextStyle(fontSize: 13),),
+          title: const Text(
+            'Pocket Weather',
+            style: const TextStyle(fontSize: 13),
+          ),
           bottom: const TabBar(
             tabs: [Text("World City"), Text("Taiwan City")],
           ),

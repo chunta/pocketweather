@@ -5,7 +5,8 @@ import 'package:pocket_weather/model/city_forecast.dart';
 
 class CityRepository {
   static const String _apiKey = 'c2d28b91440d4393a78121230241402';
-  static const String _apiBaseUrl = 'https://api.weatherapi.com/v1/forecast.json';
+  static const String _apiBaseUrl =
+      'https://api.weatherapi.com/v1/forecast.json';
   static const String _queryParams = 'days=7&aqi=no&alerts=no';
 
   bool _isFetchingWorldCities = false;
@@ -31,23 +32,18 @@ class CityRepository {
     return _instance;
   }
 
-  List<String> worldCities = [
-    "London", 
-    "New York",  
-    "Tokyo", 
-    "Paris", 
-    "Berlin"];
+  List<String> worldCities = ["London", "New York", "Tokyo", "Paris", "Berlin"];
 
   List<String> taiwanCities = [
-    "25.0329694, 121.5654177", //台北
-    "25.0169829, 121.4627868", //新北
-    "24.9936285, 121.3009798", //桃園
-    "24.163162, 120.647828", //台中
-    "22.998601, 120.187817", //台南
-    "22.6272784, 120.3014358", //高雄
-    "25.0777633, 121.3646542", //林口
-    "25.0375198, 121.4324464", //新莊
-    "25.070049, 121.483442" //新莊
+    "Taipei",
+    "Panchiao",
+    "Chungho",
+    "Taoyuan",
+    "Taichung",
+    "Tainan",
+    "Kaohsiung",
+    "Hualien",
+    "Taitung",
   ];
 
   Future<void> fetchWorldCities() async {
