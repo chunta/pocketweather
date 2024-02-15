@@ -93,10 +93,10 @@ class _CustomLocationWidgetState extends State<CustomLocationWidget> {
                           final customLocation = customLocations[key];
                           return ListTile(
                             title: Text(customLocation?.label ?? '',
-                                style: const TextStyle(fontSize: 20)),
+                                style: const TextStyle(fontSize: 28)),
                             subtitle: Text(
                                 "${customLocation?.lat} ${customLocation?.lon}",
-                                style: const TextStyle(fontSize: 14)),
+                                style: const TextStyle(fontSize: 25)),
                             onTap: () {
                               logger.d(
                                   "one saved record is tapped ${customLocation?.label ?? ''}");

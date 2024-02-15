@@ -33,7 +33,7 @@ class WorldCityWidget extends StatelessWidget {
                     title: Text(city.location.name,
                         style: const TextStyle(fontSize: 28)),
                     subtitle: Text('${city.current.currentTemp}',
-                        style: const TextStyle(fontSize: 15)),
+                        style: const TextStyle(fontSize: 25)),
                     onTap: () {
                       Navigator.of(context).pushNamed(Routers.cityForcast,
                           arguments: {

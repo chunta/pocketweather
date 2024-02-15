@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
+import 'package:pocket_weather/model/weather_condition_table.dart';
 import 'package:pocket_weather/utility.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
 
@@ -8,16 +9,19 @@ class CityForecastWidget extends StatelessWidget {
   final String name;
   final double lat;
   final double lon;
+  final WeatherConditionManager conditionManager;
   const CityForecastWidget(
       {super.key,
       required this.cityViewModel,
       required this.name,
       required this.lat,
-      required this.lon});
+      required this.lon,
+      required this.conditionManager});
 
   @override
   Widget build(BuildContext context) {
     Future<CityForecast> fetchData() async {
+      await conditionManager.initTable();
       if (name.isNotEmpty) {
         return cityViewModel.fetchForcastByName(name);
       } else if (lat != 0 && lon != 0) {
@@ -60,9 +64,9 @@ class CityForecastWidget extends StatelessWidget {
                   return ListTile(
                     title: Text(Utility.formatEpochTime(
                         cityForecast.forecast.forecastday[index].dateEpoch)),
-                    subtitle: Text(cityForecast
-                        .forecast.forecastday[index].dayCondition.condition.code
-                        .toString()),
+                    subtitle: Text(conditionManager.lookUpDescriptionByCode(
+                        cityForecast.forecast.forecastday[index].dayCondition
+                            .condition.code)),
                   );
                 },
               );
