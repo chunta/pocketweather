@@ -36,11 +36,11 @@ class WorldCityWidget extends StatelessWidget {
                         style: const TextStyle(fontSize: 15)),
                     onTap: () {
                       Navigator.of(context).pushNamed(Routers.cityForcast,
-                      arguments: {
-                                  'name': city.location.name,
-                                  'lat': 0.0,
-                                  'lon': 0.0
-                                });
+                          arguments: {
+                            'name': city.location.name,
+                            'lat': 0.0,
+                            'lon': 0.0
+                          });
                     },
                   );
                 });

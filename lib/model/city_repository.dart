@@ -22,6 +22,11 @@ class CityRepository {
   final StreamController<List<CityForecast>> _taiwanCitiesDataStreamController =
       StreamController<List<CityForecast>>.broadcast();
 
+  // ignore: unused_field
+  List<CityForecast> _worldCitiesValue = [];
+  // ignore: unused_field
+  List<CityForecast> _taiwanCitiesValue = [];
+
   Stream<List<CityForecast>> get worldCitiesDataStream =>
       _worldCitiesDataStreamController.stream;
 
@@ -60,7 +65,7 @@ class CityRepository {
       }
       try {
         List<CityForecast> results = await Future.wait(futures);
-        logger.d('$results');
+        _worldCitiesValue = results;
         _worldCitiesDataStreamController.add(results);
       } catch (e) {
         logger.d('Error fetching world cities: $e');
@@ -82,6 +87,7 @@ class CityRepository {
       }
       try {
         List<CityForecast> results = await Future.wait(futures);
+        _taiwanCitiesValue = results;
         _taiwanCitiesDataStreamController.add(results);
       } catch (e) {
         logger.d('Error fetching Taiwan cities: $e');
@@ -94,6 +100,16 @@ class CityRepository {
   }
 
   Future<CityForecast> fetchForcastByName(String name) async {
+    for (var forecast in _worldCitiesValue) {
+      if (forecast.location.name == name) {
+        return forecast;
+      }
+    }
+    for (var forecast in _taiwanCitiesValue) {
+      if (forecast.location.name == name) {
+        return forecast;
+      }
+    }
     final fullUrl = '$_apiBaseUrl?key=$_apiKey&q=$name&$_queryParams';
     return fetchApi(fullUrl);
   }

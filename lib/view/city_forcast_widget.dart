@@ -58,10 +58,11 @@ class CityForecastWidget extends StatelessWidget {
                 itemCount: cityForecast.forecast.forecastday.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(
-                      Utility.formatEpochTime(cityForecast.forecast.forecastday[index].dateEpoch)),
-                    subtitle: Text(
-                      cityForecast.forecast.forecastday[index].dayCondition.condition.code.toString()),
+                    title: Text(Utility.formatEpochTime(
+                        cityForecast.forecast.forecastday[index].dateEpoch)),
+                    subtitle: Text(cityForecast
+                        .forecast.forecastday[index].dayCondition.condition.code
+                        .toString()),
                   );
                 },
               );
