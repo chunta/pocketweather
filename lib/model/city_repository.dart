@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
 
 class CityRepository {
+  final logger = Logger();
+
   static const String _apiKey = 'c2d28b91440d4393a78121230241402';
   static const String _apiBaseUrl =
       'https://api.weatherapi.com/v1/forecast.json';
@@ -56,18 +59,15 @@ class CityRepository {
       }
       try {
         List<CityForecast> results = await Future.wait(futures);
-        // ignore: avoid_print
-        print('$results');
+        logger.d('$results');
         _worldCitiesDataStreamController.add(results);
       } catch (e) {
-        // ignore: avoid_print
-        print('Error fetching world cities: $e');
+        logger.d('Error fetching world cities: $e');
       } finally {
         _isFetchingWorldCities = false;
       }
     } else {
-      // ignore: avoid_print
-      print("Is Fetching (World City)");
+      logger.d("Is Fetching (World City)");
     }
   }
 
@@ -83,14 +83,12 @@ class CityRepository {
         List<CityForecast> results = await Future.wait(futures);
         _taiwanCitiesDataStreamController.add(results);
       } catch (e) {
-        // ignore: avoid_print
-        print('Error fetching Taiwan cities: $e');
+        logger.d('Error fetching Taiwan cities: $e');
       } finally {
         _isFetchingTaiwanCities = false;
       }
     } else {
-      // ignore: avoid_print
-      print("Is Fetching (Taiwan)");
+      logger.d("Is Fetching (Taiwan)");
     }
   }
 
@@ -106,7 +104,6 @@ class CityRepository {
   }
 
   void dispose() {
-    // ignore: avoid_print
-    print("call dispost of CityRepository");
+    logger.d("call dispost of CityRepository");
   }
 }

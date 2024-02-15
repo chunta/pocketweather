@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
 

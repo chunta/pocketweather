@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:pocket_weather/model/city_forecast.dart';
 import 'package:pocket_weather/model/city_repository.dart';
+import 'package:logger/logger.dart';
 
 class CityViewModel {
+  final logger = Logger();
+
   CityViewModel._();
 
   static final CityViewModel _instance = CityViewModel._();
@@ -28,7 +31,6 @@ class CityViewModel {
   }
 
   void dispose() {
-    // ignore: avoid_print
-    print("call dispost of CityViewModel");
+    logger.d("call dispost of CityViewModel");
   }
 }
