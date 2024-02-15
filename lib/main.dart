@@ -40,7 +40,10 @@ class HomePage extends StatelessWidget {
             tabs: [
               Text("World City"),
               Text("Taiwan City"),
-              Text("Custom Location")
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text("Custom Location"),
+              ),
             ],
           ),
         ),
