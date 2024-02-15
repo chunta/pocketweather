@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_weather/model/city_forecast.dart';
 import 'package:pocket_weather/view/world_city_widget.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
 import 'package:pocket_weather/view/taiwan_city_widget.dart';
@@ -28,7 +27,7 @@ class HomePage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Tabs Example'),
+          title: const Text('Pocket Weather', style: const TextStyle(fontSize: 13),),
           bottom: const TabBar(
             tabs: [Text("World City"), Text("Taiwan City")],
           ),
