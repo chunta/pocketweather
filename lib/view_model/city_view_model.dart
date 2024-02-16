@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:pocket_weather/model/city_forecast.dart';
-import 'package:pocket_weather/model/city_repository.dart';
+import 'package:pocket_weather/model/repository/city_repository.dart';
 import 'package:logger/logger.dart';
 
 class CityViewModel {

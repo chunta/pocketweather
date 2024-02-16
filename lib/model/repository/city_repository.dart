@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/city.dart';
 import 'package:pocket_weather/model/city_current.dart';
@@ -11,7 +13,7 @@ import 'package:pocket_weather/model/weather_condition.dart';
 class CityRepository {
   final logger = Logger();
 
-  static const String _apiKey = 'c2d28b91440d4393a78121230241402';
+  static const String _apiKey = '96d64ec5a2ec46d99bd71813241602';
   static const String _apiBaseUrl =
       'https://api.weatherapi.com/v1/forecast.json';
   static const String _queryParams = 'days=7&aqi=no&alerts=no';
@@ -67,12 +69,12 @@ class CityRepository {
         futures.add(fetchApi(fullUrl));
       }
       try {
-        logger.d('(70) has world cities');
+        logger.d('(72) has world cities');
         List<CityForecast> results = await Future.wait(futures);
         _worldCitiesValue = results;
         _worldCitiesDataStreamController.add(results);
       } catch (e) {
-        logger.d('(74) Error fetching world cities: $e');
+        logger.d('(77) Error fetching world cities: $e');
         _worldCitiesDataStreamController.addError(e);
       } finally {
         _isFetchingWorldCities = false;
@@ -91,7 +93,7 @@ class CityRepository {
         futures.add(fetchApi(fullUrl));
       }
       try {
-        logger.d('(94) has taiwan cities');
+        logger.d('(96) has taiwan cities');
         List<CityForecast> results = await Future.wait(futures);
         _taiwanCitiesValue = results;
         _taiwanCitiesDataStreamController.add(results);
@@ -133,10 +135,10 @@ class CityRepository {
         final jsonResponse = jsonDecode(response.body);
         return CityForecast.fromJson(jsonResponse);
       } else {
-        throw Exception('Fail to load data from API ${response.statusCode}');
+        throw Exception('${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Fail to load data from API ${e}');
+      throw Exception('${e}');
     }
   }
 

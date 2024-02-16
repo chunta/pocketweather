@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:pocket_weather/model/custom_location.dart';
-import 'package:pocket_weather/model/custom_location_repository.dart';
+import 'package:pocket_weather/model/repository/custom_location_repository.dart';
 import 'package:logger/logger.dart';
 
 class CustomLocationViewModel {
