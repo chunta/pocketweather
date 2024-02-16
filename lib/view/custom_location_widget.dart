@@ -24,6 +24,7 @@ class _CustomLocationWidgetState extends State<CustomLocationWidget> {
   @override
   Widget build(BuildContext widgetContext) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
           child: Column(
@@ -83,7 +84,13 @@ class _CustomLocationWidgetState extends State<CustomLocationWidget> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
+                      return Center(
+                          child: Padding(
+                              padding: const EdgeInsets.all(30),
+                              child: SizedBox(
+                                  width: double.infinity,
+                                  child: Text('${snapshot.error}',
+                                      style: const TextStyle(fontSize: 18)))));
                     } else {
                       final customLocations = snapshot.data ?? {};
                       return ListView.builder(

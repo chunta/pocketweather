@@ -67,7 +67,7 @@ class CityRepository {
         futures.add(fetchApi(fullUrl));
       }
       try {
-        logger.d('(70)');
+        logger.d('(70) has world cities');
         List<CityForecast> results = await Future.wait(futures);
         _worldCitiesValue = results;
         _worldCitiesDataStreamController.add(results);
@@ -91,6 +91,7 @@ class CityRepository {
         futures.add(fetchApi(fullUrl));
       }
       try {
+        logger.d('(94) has taiwan cities');
         List<CityForecast> results = await Future.wait(futures);
         _taiwanCitiesValue = results;
         _taiwanCitiesDataStreamController.add(results);
@@ -135,7 +136,7 @@ class CityRepository {
         throw Exception('Fail to load data from API ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('(139) Fail to load data from API something wrong');
+      throw Exception('Fail to load data from API ${e}');
     }
   }
 

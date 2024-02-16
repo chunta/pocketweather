@@ -30,11 +30,17 @@ class CityForecastWidget extends StatelessWidget {
       return CityForecast.fromJson({});
     }
 
-    Text getTitle() {
+    Widget getTitle() {
       if (name.isNotEmpty) {
-        return Text('$name forcast');
+        return FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text('7 days forecast -  $name',
+                style: const TextStyle(fontSize: 16)));
       } else if (lat != 0 && lon != 0) {
-        return Text('lat: $lat lon: $lon forcast');
+        return FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text('7 days forecast -  at lat: $lat lon: $lon',
+                style: const TextStyle(fontSize: 16)));
       }
       return const Text('City Forecast');
     }
@@ -55,7 +61,13 @@ class CityForecastWidget extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(
+                  child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: SizedBox(
+                          width: double.infinity,
+                          child: Text('${snapshot.error}',
+                              style: const TextStyle(fontSize: 18)))));
             } else {
               final cityForecast = snapshot.data!;
               return ListView.builder(
