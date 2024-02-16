@@ -39,6 +39,7 @@ dependencies:
   json_annotation: ^4.8.1
   logger: ^2.0.2+1
   shared_preferences: ^2.2.2
+  dio_cache_interceptor: ^3.5.0
 
 dev_dependencies:
   flutter_test:
