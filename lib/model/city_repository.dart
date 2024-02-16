@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+import 'package:pocket_weather/model/city.dart';
 import 'package:pocket_weather/model/city_current.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
+import 'package:pocket_weather/model/city_location.dart';
+import 'package:pocket_weather/model/weather_condition.dart';
 
 class CityRepository {
   final logger = Logger();
@@ -64,11 +67,13 @@ class CityRepository {
         futures.add(fetchApi(fullUrl));
       }
       try {
+        logger.d('(70)');
         List<CityForecast> results = await Future.wait(futures);
         _worldCitiesValue = results;
         _worldCitiesDataStreamController.add(results);
       } catch (e) {
-        logger.d('Error fetching world cities: $e');
+        logger.d('(74) Error fetching world cities: $e');
+        _worldCitiesDataStreamController.addError(e);
       } finally {
         _isFetchingWorldCities = false;
       }
@@ -91,6 +96,7 @@ class CityRepository {
         _taiwanCitiesDataStreamController.add(results);
       } catch (e) {
         logger.d('Error fetching Taiwan cities: $e');
+        _taiwanCitiesDataStreamController.addError(e);
       } finally {
         _isFetchingTaiwanCities = false;
       }
@@ -120,13 +126,16 @@ class CityRepository {
   }
 
   Future<CityForecast> fetchApi(String url) async {
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      CityForecast forcast = CityForecast.fromJson(jsonResponse);
-      return forcast;
-    } else {
-      throw Exception('Fail to load data from API ${response.statusCode}');
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        return CityForecast.fromJson(jsonResponse);
+      } else {
+        throw Exception('Fail to load data from API ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('(139) Fail to load data from API something wrong');
     }
   }
 

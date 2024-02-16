@@ -9,9 +9,16 @@ class City {
 
   const City({required this.location, required this.weather});
 
-  factory City.fromJson(Map<String, dynamic> json) => City(
-      location: CityLocation.fromJson(json['location']),
-      weather: CityCurrent.fromJson(json['current']));
+  factory City.fromJson(Map<String, dynamic> json) {
+    final location = json.containsKey('location')
+        ? CityLocation.fromJson(json['location'])
+        : CityLocation.fromJson({});
+    final weather = json.containsKey('current')
+        ? CityCurrent.fromJson(json['current'])
+        : CityCurrent.fromJson({});
+
+    return City(location: location, weather: weather);
+  }
 
   Map<String, dynamic> toJson() =>
       {'location': location.toJson(), 'weather': weather.toJson()};

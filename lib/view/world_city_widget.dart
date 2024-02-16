@@ -14,7 +14,7 @@ class WorldCityWidget extends StatelessWidget {
     return StreamBuilder<List<CityForecast>>(
         stream: cityViewModel.getWorldCitiesStream(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          if (!snapshot.hasData && !snapshot.hasError) {
             return const Center(
               child: SizedBox(
                 width: 50, // Set the width
@@ -23,7 +23,13 @@ class WorldCityWidget extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: Text('${snapshot.error}',
+                            style: const TextStyle(fontSize: 18)))));
           } else {
             return ListView.builder(
                 itemCount: snapshot.data!.length,

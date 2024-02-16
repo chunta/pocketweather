@@ -6,8 +6,10 @@ class WeatherCondition {
 
   WeatherCondition({required this.code});
 
-  factory WeatherCondition.fromJson(Map<String, dynamic> json) =>
-      WeatherCondition(code: json['code'] as int);
+  factory WeatherCondition.fromJson(Map<String, dynamic> json) {
+    final code = json.containsKey('code') ? json['code'] as int : 0;
+    return WeatherCondition(code: code);
+  }
 
   Map<String, dynamic> toJson() => {'code': code};
 }

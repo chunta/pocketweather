@@ -12,10 +12,21 @@ class CityCurrent {
       required this.currentTemp,
       required this.condition});
 
-  factory CityCurrent.fromJson(Map<String, dynamic> json) => CityCurrent(
-      lastUpdatedEpoch: json['last_updated_epoch'] as int,
-      currentTemp: json['temp_c'] as double,
-      condition: WeatherCondition.fromJson(json['condition']));
+  factory CityCurrent.fromJson(Map<String, dynamic> json) {
+    final lastUpdatedEpoch = json.containsKey('last_updated_epoch')
+        ? json['last_updated_epoch'] as int
+        : 0;
+    final currentTemp =
+        json.containsKey('temp_c') ? json['temp_c'] as double : 0.0;
+    final condition = json.containsKey('condition')
+        ? WeatherCondition.fromJson(json['condition'])
+        : WeatherCondition.fromJson({});
+
+    return CityCurrent(
+        lastUpdatedEpoch: lastUpdatedEpoch,
+        currentTemp: currentTemp,
+        condition: condition);
+  }
 
   Map<String, dynamic> toJson() => {
         'last_updated_epoch': lastUpdatedEpoch,

@@ -9,13 +9,28 @@ class DayCondition {
   final WeatherCondition condition;
 
   const DayCondition(
-      this.maxtemp, this.mintemp, this.avghumidity, this.condition);
+      {required this.maxtemp,
+      required this.mintemp,
+      required this.avghumidity,
+      required this.condition});
 
-  DayCondition.fromJson(Map<String, dynamic> json)
-      : maxtemp = json['maxtemp_c'] as double,
-        mintemp = json['mintemp_c'] as double,
-        avghumidity = json['avghumidity'] as int,
-        condition = WeatherCondition.fromJson(json['condition']);
+  factory DayCondition.fromJson(Map<String, dynamic> json) {
+    final maxtemp =
+        json.containsKey('maxtemp') ? json['maxtemp'] as double : 0.0;
+    final mintemp =
+        json.containsKey('mintemp') ? json['mintemp'] as double : 0.0;
+    final avghumidity =
+        json.containsKey('avghumidity') ? json['avghumidity'] as int : 0;
+    final condition = json.containsKey('condition')
+        ? WeatherCondition.fromJson(json['condition'])
+        : WeatherCondition.fromJson({});
+
+    return DayCondition(
+        maxtemp: maxtemp,
+        mintemp: mintemp,
+        avghumidity: avghumidity,
+        condition: condition);
+  }
 
   Map<String, dynamic> toJson() => {
         'maxtemp': maxtemp,

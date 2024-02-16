@@ -38,13 +38,20 @@ class HomePage extends StatelessWidget {
           ),
           bottom: const TabBar(
             tabs: [
-              Text("World City"),
-              Text("Taiwan City"),
               FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text("Custom Location"),
-              ),
+                  fit: BoxFit.scaleDown,
+                  child: Text("World City", style: TextStyle(fontSize: 13))),
+              FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text("Taiwan City", style: TextStyle(fontSize: 13))),
+              FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child:
+                      Text("Custom Location", style: TextStyle(fontSize: 13)))
             ],
+            labelPadding: EdgeInsets.symmetric(
+                horizontal: 11.0,
+                vertical: 7.0), // Add padding around the tab labels
           ),
         ),
         body: TabBarView(

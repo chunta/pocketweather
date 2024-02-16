@@ -15,6 +15,15 @@ class TaiwanCityWidget extends StatelessWidget {
       body: StreamBuilder<List<CityForecast>>(
         stream: cityViewModel.getTaiwanCitiesStream(),
         builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: Text('${snapshot.error}',
+                            style: const TextStyle(fontSize: 18)))));
+          }
           return snapshot.hasData
               ? CustomScrollView(
                   slivers: [
