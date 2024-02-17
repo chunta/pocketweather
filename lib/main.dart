@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pocket_weather/routes.dart';
 import 'package:pocket_weather/view/custom_location_widget.dart';
+import 'package:pocket_weather/view/thai_famous_city_widget.dart';
 import 'package:pocket_weather/view/world_city_widget.dart';
 import 'package:pocket_weather/view_model/city_view_model.dart';
 import 'package:pocket_weather/view/taiwan_city_widget.dart';
 import 'package:pocket_weather/view_model/custom_location_view_model.dart';
+import 'package:pocket_weather/view_model/thai_famous_city_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +32,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -47,8 +49,10 @@ class HomePage extends StatelessWidget {
                   child: Text("Taiwan City", style: TextStyle(fontSize: 13))),
               FittedBox(
                   fit: BoxFit.scaleDown,
-                  child:
-                      Text("Custom Location", style: TextStyle(fontSize: 13)))
+                  child: Text("Custom Place", style: TextStyle(fontSize: 13))),
+              FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text("Thai City", style: TextStyle(fontSize: 13)))
             ],
             labelPadding: EdgeInsets.symmetric(
                 horizontal: 11.0,
@@ -60,7 +64,8 @@ class HomePage extends StatelessWidget {
             WorldCityWidget(cityViewModel: CityViewModel()),
             TaiwanCityWidget(cityViewModel: CityViewModel()),
             CustomLocationWidget(
-                customLocationViewModel: CustomLocationViewModel())
+                customLocationViewModel: CustomLocationViewModel()),
+            ThaiFamousCityWidget(thaiCityViewModel: ThaiFamousCityViewModel(),),
           ],
         ),
       ),

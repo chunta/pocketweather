@@ -1,21 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:http/io_client.dart';
 import 'package:logger/logger.dart';
-import 'package:pocket_weather/model/city.dart';
-import 'package:pocket_weather/model/city_current.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
-import 'package:pocket_weather/model/city_location.dart';
-import 'package:pocket_weather/model/weather_condition.dart';
+import 'package:pocket_weather/model/repository/weather_api.dart';
 
 class CityRepository {
   final logger = Logger();
 
-  static const String _apiKey = '96d64ec5a2ec46d99bd71813241602';
-  static const String _apiBaseUrl =
-      'https://api.weatherapi.com/v1/forecast.json';
+  static const String _apiKey = WEATHER_API_KEY;
+  static const String _apiBaseUrl = WEATHER_BASE_URL;
   static const String _queryParams = 'days=7&aqi=no&alerts=no';
 
   bool _isFetchingWorldCities = false;
