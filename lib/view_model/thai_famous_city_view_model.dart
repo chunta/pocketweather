@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
 import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/repository/thai_famous_city_repository.dart';
 
-class ThaiFamousCityViewModel {
+class ThaiFamousCityViewModel with ChangeNotifier {
   final logger = Logger();
+
+  CityForecast cityForecast = CityForecast.fromJson({});
 
   ThaiFamousCityViewModel._();
 
@@ -14,8 +17,10 @@ class ThaiFamousCityViewModel {
     return _instance;
   }
 
-  Future<CityForecast> fetchForcastByNameCase(ThaiFamousCity nameCase) async {
-    return ThaiFamousCityRepository().fetchThaiCityByNameCase(nameCase);
+  Future<void> fetchForcastByNameCase(ThaiFamousCity nameCase) async {
+    cityForecast =
+        await ThaiFamousCityRepository().fetchThaiCityByNameCase(nameCase);
+    notifyListeners();
   }
 
   String nameFromNameCity(ThaiFamousCity nameCase) {

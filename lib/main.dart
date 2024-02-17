@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_weather/model/weather_condition_table.dart';
 import 'package:pocket_weather/routes.dart';
 import 'package:pocket_weather/view/custom_location_widget.dart';
 import 'package:pocket_weather/view/thai_famous_city_widget.dart';
@@ -65,7 +66,7 @@ class HomePage extends StatelessWidget {
             TaiwanCityWidget(cityViewModel: CityViewModel()),
             CustomLocationWidget(
                 customLocationViewModel: CustomLocationViewModel()),
-            ThaiFamousCityWidget(thaiCityViewModel: ThaiFamousCityViewModel(),),
+            const ThaiFamousCityWidget(),
           ],
         ),
       ),

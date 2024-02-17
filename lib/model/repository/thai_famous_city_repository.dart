@@ -44,7 +44,6 @@ class ThaiFamousCityRepository {
   }
 
   Future<CityForecast> fetchThaiCityByNameCase(ThaiFamousCity nameCase) async {
-    logger.d(nameCase.index);
     String name = thaiCities[nameCase]!;
     final fullUrl = '$_apiBaseUrl?key=$_apiKey&q=$name&$_queryParams';
     return fetchApi(fullUrl);
