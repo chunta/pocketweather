@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
             TaiwanCityWidget(cityViewModel: CityViewModel()),
             CustomLocationWidget(
                 customLocationViewModel: CustomLocationViewModel()),
-            const ThaiParentWidget(),
+            ThaiParentWidget(viewModel: ThaiFamousCityViewModel(),),
           ],
         ),
       ),

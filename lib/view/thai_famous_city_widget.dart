@@ -5,11 +5,12 @@ import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/repository/thai_famous_city_repository.dart';
 import 'package:pocket_weather/model/weather_condition_table.dart';
 import 'package:pocket_weather/utility.dart';
-import 'package:pocket_weather/view_model/thai_famous_city_view_model.dart';
+import 'package:pocket_weather/view_model/thai_city_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ThaiParentWidget extends StatelessWidget {
-  const ThaiParentWidget({super.key});
+  final ThaiCityViewModel viewModel;
+  const ThaiParentWidget({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +22,13 @@ class ThaiParentWidget extends StatelessWidget {
           margin: const EdgeInsets.only(top: 16.0), // Add top margin
           child: const Text("Top Title"),
         ),
-        const ThaiFamousCityButtonsWidget(),
-        const Expanded(
-          child: ThaiFamousCityWidget(),
+        ThaiFamousCityButtonsWidget(
+          viewModel: viewModel,
+        ),
+        Expanded(
+          child: ThaiFamousCityWidget(
+            viewModel: viewModel,
+          ),
         ),
         const Text("Bottom Title"),
       ],
@@ -32,7 +37,8 @@ class ThaiParentWidget extends StatelessWidget {
 }
 
 class ThaiFamousCityButtonsWidget extends StatelessWidget {
-  const ThaiFamousCityButtonsWidget({super.key});
+  final ThaiCityViewModel viewModel;
+  const ThaiFamousCityButtonsWidget({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -44,27 +50,21 @@ class ThaiFamousCityButtonsWidget extends StatelessWidget {
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
-              ThaiFamousCityViewModel()
-                  .fetchForcastByNameCase(ThaiFamousCity.bangkok);
+              viewModel.fetchForcastByNameCase(ThaiFamousCity.bangkok);
             },
-            child: Text(ThaiFamousCityViewModel()
-                .nameFromNameCity(ThaiFamousCity.bangkok)),
+            child: Text(viewModel.nameFromNameCity(ThaiFamousCity.bangkok)),
           ),
           ElevatedButton(
             onPressed: () {
-              ThaiFamousCityViewModel()
-                  .fetchForcastByNameCase(ThaiFamousCity.chiangMai);
+              viewModel.fetchForcastByNameCase(ThaiFamousCity.chiangMai);
             },
-            child: Text(ThaiFamousCityViewModel()
-                .nameFromNameCity(ThaiFamousCity.chiangMai)),
+            child: Text(viewModel.nameFromNameCity(ThaiFamousCity.chiangMai)),
           ),
           ElevatedButton(
             onPressed: () {
-              ThaiFamousCityViewModel()
-                  .fetchForcastByNameCase(ThaiFamousCity.phuket);
+              viewModel.fetchForcastByNameCase(ThaiFamousCity.phuket);
             },
-            child: Text(ThaiFamousCityViewModel()
-                .nameFromNameCity(ThaiFamousCity.phuket)),
+            child: Text(viewModel.nameFromNameCity(ThaiFamousCity.phuket)),
           ),
         ],
       ),
@@ -73,24 +73,23 @@ class ThaiFamousCityButtonsWidget extends StatelessWidget {
 }
 
 class ThaiFamousCityWidget extends StatelessWidget {
-  const ThaiFamousCityWidget({super.key});
+  final ThaiCityViewModel viewModel;
+  const ThaiFamousCityWidget({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
     Logger().d('ThaiFamousCityWidget build its body');
     return ChangeNotifierProvider(
-      create: (_) => ThaiFamousCityViewModel(),
+      create: (_) => viewModel,
       child: ThaiFamousCityBodyWidget(
-          conditionManager: WeatherConditionManager(
-        conditionTable: WeatherConditionTable(),
-      )),
+          conditionManager:
+              WeatherConditionManager(conditionTable: WeatherConditionTable())),
     );
   }
 }
 
 class ThaiFamousCityBodyWidget extends StatelessWidget {
   final WeatherConditionManager conditionManager;
-
   ThaiFamousCityBodyWidget({super.key, required this.conditionManager});
 
   bool inited = false;
@@ -102,7 +101,7 @@ class ThaiFamousCityBodyWidget extends StatelessWidget {
       body: Column(
         children: <Widget>[
           if (context
-              .watch<ThaiFamousCityViewModel>()
+              .watch<ThaiCityViewModel>()
               .cityForecast
               .location
               .name
@@ -111,16 +110,12 @@ class ThaiFamousCityBodyWidget extends StatelessWidget {
               padding: const EdgeInsets.only(
                   top: 16.0), // Adjust top margin as needed
               child: Text(
-                context
-                    .watch<ThaiFamousCityViewModel>()
-                    .cityForecast
-                    .location
-                    .name,
+                context.watch<ThaiCityViewModel>().cityForecast.location.name,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           Expanded(
-            child: Consumer<ThaiFamousCityViewModel>(
+            child: Consumer<ThaiCityViewModel>(
               builder: (context, thaiCityViewModel, _) {
                 if (!inited) {
                   conditionManager.initTable();

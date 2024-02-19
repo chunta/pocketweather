@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:pocket_weather/model/city_forecast.dart';
 import 'package:logger/logger.dart';
 import 'package:pocket_weather/model/repository/thai_famous_city_repository.dart';
+import 'package:pocket_weather/view_model/thai_city_view_model.dart';
 
-class ThaiFamousCityViewModel with ChangeNotifier {
+class ThaiFamousCityViewModel with ChangeNotifier implements ThaiCityViewModel {
   final logger = Logger();
 
   CityForecast cityForecast = CityForecast.fromJson({});
