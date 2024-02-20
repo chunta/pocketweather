@@ -8,6 +8,7 @@ import 'package:pocket_weather/view_model/thai_city_view_model.dart';
 class ThaiFamousCityViewModel with ChangeNotifier implements ThaiCityViewModel {
   final logger = Logger();
 
+  @override
   CityForecast cityForecast = CityForecast.fromJson({});
 
   ThaiFamousCityViewModel._();
@@ -18,17 +19,15 @@ class ThaiFamousCityViewModel with ChangeNotifier implements ThaiCityViewModel {
     return _instance;
   }
 
+  @override
   Future<void> fetchForcastByNameCase(ThaiFamousCity nameCase) async {
     cityForecast =
         await ThaiFamousCityRepository().fetchThaiCityByNameCase(nameCase);
     notifyListeners();
   }
 
+  @override
   String nameFromNameCity(ThaiFamousCity nameCase) {
     return ThaiFamousCityRepository().nameFromNameCity(nameCase);
-  }
-
-  void dispose() {
-    logger.d("call dispost of CityViewModel");
   }
 }

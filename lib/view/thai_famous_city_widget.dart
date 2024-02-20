@@ -93,10 +93,11 @@ class ThaiFamousCityBodyWidget extends StatelessWidget {
   ThaiFamousCityBodyWidget({super.key, required this.conditionManager});
 
   bool inited = false;
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
-    Logger().d('ThaiFamousCityBodyWidget build its body');
+    Logger().d('ThaiFamousCityBodyWidget build its body ${count++}');
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -125,6 +126,7 @@ class ThaiFamousCityBodyWidget extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 return ListView.builder(
+                  key: const Key("TheListViewICare"),
                   itemCount: thaiCityViewModel
                       .cityForecast.forecast.forecastday.length,
                   itemBuilder: (context, index) {
